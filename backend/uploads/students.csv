@@ -1,0 +1,6 @@
+name,password,email,course,attendance,semester,branch,RollNumber
+John Doe,12345,johndoe@gmail.com,,85,5,Computer Science,202101001
+Jane Smith,67890,janesmith@gmail.com,,90,6,Electrical Engineering,202101002
+Alice Johnson,54321,alicejohnson@gmail.com,,75,4,Mechanical Engineering,202101003
+Bob Brown,98765,bobbrown@gmail.com,,80,5,Civil Engineering,202101004
+Emma Davis,11111,emmadavis@gmail.com,,92,6,Information Technology,202101005

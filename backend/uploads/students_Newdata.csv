@@ -1,0 +1,4 @@
+name,password,email,semester,branch,rollNo
+John Doe,password123,john.doe@email.com,1,CSE,202101
+Alice Smith,password456,alice.smith@email.com,2,ECE,202102
+Bob Johnson,password789,bob.johnson@email.com,3,ME,202103
