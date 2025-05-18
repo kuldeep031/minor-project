@@ -30,7 +30,7 @@ const StudentLogin = () => {
       setLoading(true);
       const lowercasedEmail = email.toLowerCase();
 
-      const response = await fetch("http://localhost:5173/api/login/student", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/login/student`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -27,7 +27,7 @@ function Projectinfo() {
             if(status === "accepted"){
                 temp = true;
             }
-            const response = await fetch("http://localhost:5173/api/request/updateStatus", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/request/updateStatus`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -51,7 +51,7 @@ function Projectinfo() {
 
     const fetchFacultyData = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5173/api/faculty/${id}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/faculty/${id}`);
             if (response.ok) {
                 const facultyData = await response.json();
                 setUserName(facultyData.name);
@@ -65,7 +65,7 @@ function Projectinfo() {
 
     const fetchPendingRequests = async (facultyId) => {
         try {
-            const response = await fetch("http://localhost:5173/api/request/getPendingRequests", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/request/getPendingRequests`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -90,7 +90,7 @@ function Projectinfo() {
         try {
             const currentYear = new Date().getFullYear();
             const response = await fetch(
-                `http://localhost:5173/api/facultyLoad?facultyId=${facultyId}&semester=${semm}&year=${currentYear}`
+                `${process.env.REACT_APP_API_URL}/api/facultyLoad?facultyId=${facultyId}&semester=${semm}&year=${currentYear}`
             );
     
             if (response.ok) {
@@ -117,7 +117,7 @@ function Projectinfo() {
         console.log('facultyId:', facultyId); // Ensure facultyId is defined in your scope
         try {
             const currentYear = new Date().getFullYear();
-            const response = await fetch("http://localhost:5173/api/facultyLoad/update-faculty-stats", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/facultyLoad/update-faculty-stats`, {
                 method: "PUT", // Change to PUT
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -145,7 +145,7 @@ function Projectinfo() {
             if (!request) throw new Error("Request not found");
     
             // 2. Get current count of accepted projects
-            const countResponse = await fetch("http://localhost:5173/api/request/getAcceptedCount", {
+            const countResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/request/getAcceptedCount`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
@@ -163,7 +163,7 @@ function Projectinfo() {
             const newGroupNo = count + 1;
     
             // 3. Update status and set GroupNo
-            const updateResponse = await fetch("http://localhost:5173/api/request/updateStatus", {
+            const updateResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/request/updateStatus`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

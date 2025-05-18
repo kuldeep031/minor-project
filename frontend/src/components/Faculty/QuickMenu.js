@@ -22,7 +22,7 @@ function QuickMenu() {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await fetch("http://localhost:5173/api/students");
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/students`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch students');
                 }
@@ -36,7 +36,7 @@ function QuickMenu() {
 
         const fetchTotalAttendance = async () => {
             try {
-                const response = await fetch("http://localhost:5173/api/students/total-attendance", {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/students/total-attendance`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

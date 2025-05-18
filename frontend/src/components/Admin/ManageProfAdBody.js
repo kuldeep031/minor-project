@@ -31,7 +31,7 @@ function ManageProfileBody() {
                 const decodedToken = jwtDecode(token);
                 const { id } = decodedToken;
                 try {
-                    const response = await fetch(`http://localhost:5173/api/admin/${id}`);
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/${id}`);
                     if (response.ok) {
                         const facultyData = await response.json();
                         setFaculty(facultyData);
@@ -124,7 +124,7 @@ function ManageProfileBody() {
             updateData.signature = signaturePreview;
         }
 
-        const response = await fetch(`http://localhost:5173/api/admin/${faculty._id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/${faculty._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

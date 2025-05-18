@@ -35,7 +35,7 @@ const EvaluationSelection = () => {
 
     const fetchEvaluators = useCallback(async () => {
         try {
-            const response = await fetch(`http://localhost:5173/api/eveSettings/evaluators?semester=${semester}&year=${year}&facultyId=${facultyId}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/eveSettings/evaluators?semester=${semester}&year=${year}&facultyId=${facultyId}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -97,7 +97,7 @@ const EvaluationSelection = () => {
             .map(evaluator => evaluator.faculty);
 
         try {
-            const response = await fetch("http://localhost:5173/api/request/projects/getProjects", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/request/projects/getProjects`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ facultyIds, semester, year })
@@ -359,7 +359,7 @@ const EvaluationSelection = () => {
       
           console.log("Payload being sent:", payload); // Debug log
       
-          const response = await fetch("http://localhost:5173/api/eveSettings/saveEvaluationMarks", {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/eveSettings/saveEvaluationMarks`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

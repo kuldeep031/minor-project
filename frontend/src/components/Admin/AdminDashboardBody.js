@@ -124,14 +124,14 @@ function AdminBody() {
   const [totalStudents, setTotalStudents] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:5173/api/faculty/")
+    fetch(`${process.env.REACT_APP_API_URL}/api/faculty/`)
       .then((response) => response.json())
       .then((data) => setTotalFaculties(data.length))
       .catch((error) => console.error("Error fetching faculties:", error));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5173/api/students/")
+    fetch(`${process.env.REACT_APP_API_URL}/api/students/`)
       .then((response) => response.json())
       .then((data) => setTotalStudents(data.length))
       .catch((error) => console.error("Error fetching students:", error));

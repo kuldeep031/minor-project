@@ -7,6 +7,10 @@ connectDB();
 const PORT = 5173
 
 app.use(express.json());
+// app.use(cors({
+//   origin: 'https://your-frontend-url.vercel.app',
+//   credentials: true // if you use cookies/auth
+// }));
 app.use(cors({}));
 
 // Routes

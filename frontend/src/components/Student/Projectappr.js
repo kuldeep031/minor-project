@@ -227,7 +227,7 @@ function ProjectAppr() {
   const downloadReport = async (requestId) => {
     try {
         // Open in new tab approach
-        window.open(`http://localhost:5173/api/request/download-report/${requestId}`, '_blank');
+        window.open(`${process.env.REACT_APP_API_URL}/api/request/download-report/${requestId}`, '_blank');
     } catch (error) {
         console.error('Error downloading report:', error);
         alert('Error downloading report');
@@ -291,7 +291,7 @@ function ProjectAppr() {
         Approved: false,
       };
   
-      const response = await fetch("http://localhost:5173/api/request/createreq", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/request/createreq`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

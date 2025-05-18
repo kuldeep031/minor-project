@@ -16,7 +16,7 @@ function ViewStudentBody() {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await fetch("http://localhost:5173/api/students");
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/students`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch students');
                 }
@@ -30,7 +30,7 @@ function ViewStudentBody() {
 
         const fetchCourses = async () => {
             try {
-                const response = await fetch("http://localhost:5173/api/courses");
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/courses`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch courses');
                 }

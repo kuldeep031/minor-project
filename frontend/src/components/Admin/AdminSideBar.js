@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   const fetchAdminData = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5173/api/admin/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/${id}`);
       if (response.ok) {
         const adminData = await response.json();
         setUserName(adminData.name);

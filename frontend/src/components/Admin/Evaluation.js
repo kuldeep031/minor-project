@@ -89,7 +89,7 @@ const Evaluation = () => {
   const getFaculty = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:5173/api/faculty");
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/faculty`);
       if (response.ok) {
         const data = await response.json();
         setFacultyList(
@@ -110,7 +110,7 @@ const Evaluation = () => {
   const fetchExistingEvaluations = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:5173/api/eveSettings/");
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/eveSettings/`);
       if (response.ok) {
         const data = await response.json();
         setExistingEvaluations(data);
@@ -205,8 +205,8 @@ const Evaluation = () => {
     try {
       setIsLoading(true);
       const url = isEditing
-        ? `http://localhost:5173/api/eveSettings/evaluation/${editingEvaluationId}`
-        : "http://localhost:5173/api/eveSettings/evaluation";
+        ? `${process.env.REACT_APP_API_URL}/api/eveSettings/evaluation/${editingEvaluationId}`
+        : `${process.env.REACT_APP_API_URL}/api/eveSettings/evaluation`;
 
       const method = isEditing ? "PUT" : "POST";
 

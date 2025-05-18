@@ -50,7 +50,7 @@ function ManageFacultyBody() {
         formData.append('file', file);
 
         try {
-            const response = await fetch('http://localhost:5173/api/upload-faculty', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/upload-faculty`, {
                 method: 'POST',
                 body: formData
             });
@@ -84,7 +84,7 @@ function ManageFacultyBody() {
   useEffect(() => {
     const fetchFaculty = async () => {
       try {
-        const response = await fetch("http://localhost:5173/api/faculty");
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/faculty`);
         if (!response.ok) {
           throw new Error('Failed to fetch faculty');
         }

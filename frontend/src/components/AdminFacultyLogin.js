@@ -31,7 +31,7 @@ const AdminFacultyLogin = () => {
       const lowercasedEmail = email.toLowerCase();
 
       const response = await fetch(
-        "http://localhost:5173/api/login/admin-faculty",
+        `${process.env.REACT_APP_API_URL}/api/login/admin-faculty`,
         {
           method: "POST",
           headers: {
