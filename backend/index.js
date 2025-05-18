@@ -62,7 +62,3 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-// ✅ Optional: Base route
-app.get("/", (req, res) => {
-  res.send("Minor Project Management System API is running...");
-});
