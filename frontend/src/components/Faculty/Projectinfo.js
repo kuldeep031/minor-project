@@ -276,7 +276,7 @@ function Projectinfo() {
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)"
         }}
     >
-        <h4 className="m-4 mt-3 text-success fw-bold">Manage Profile</h4>
+        <h4 className="m-4 mt-3 text-success fw-bold">Pending Requests</h4>
         <div className="mx-4 mb-4 border-bottom border-3 rounded-5" />
 
         {req.length > 0 ? (
