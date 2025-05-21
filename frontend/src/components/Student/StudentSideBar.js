@@ -10,15 +10,8 @@ const Sidebar = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [userName, setUserName] = useState("");
     const [isProjectOpen, setIsProjectOpen] = useState(false);
-    // const [message, setMessage] = useState("");
-
-    const [errorMessage, setErrorMessage] = useState("");
-
-    useEffect(() => {
-        // Logic to check if the window is open or closed
-        // For example, we set the value of isProjectOpen here
-        setIsProjectOpen(false);  // Simulating that the project window is closed
-    }, []);
+    const [projectStatus, setProjectStatus] = useState("");
+    const [deadline, setDeadline] = useState("");
 
     useEffect(() => {
         const token = localStorage.getItem("jwt");
@@ -37,7 +30,6 @@ const Sidebar = () => {
                 const studentData = await response.json();
                 setUserName(studentData.name);
 
-                // Fetch academicYear from student model
                 const { academicYear, semester } = studentData;
                 if (academicYear) {
                     const correctYear = calculateYear(academicYear, semester);
@@ -62,10 +54,32 @@ const Sidebar = () => {
             if (response.ok) {
                 const groups = await response.json();
                 const matchingGroup = groups.find((group) => group.semester === semester && group.year === year);
+                
                 if (matchingGroup) {
-                    setIsProjectOpen(matchingGroup.openWindow);
+                    setDeadline(matchingGroup.deadline);
+                    const now = new Date();
+                    const deadlineDate = new Date(matchingGroup.deadline);
+                    
+                    // Reset time components to compare only dates
+                    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    const deadlineDay = new Date(deadlineDate.getFullYear(), deadlineDate.getMonth(), deadlineDate.getDate());
+                    
+                    const isDeadlinePassed = today > deadlineDay;
+                    const isDeadlineToday = today.getTime() === deadlineDay.getTime();
+                    
+                    if (!matchingGroup.openWindow) {
+                        setIsProjectOpen(false);
+                        setProjectStatus("Project submission window is currently closed.");
+                    } else if (isDeadlinePassed) {
+                        setIsProjectOpen(false);
+                        setProjectStatus("");
+                    } else {
+                        setIsProjectOpen(true);
+                        setProjectStatus("");
+                    }
                 } else {
-                    setIsProjectOpen(false); 
+                    setIsProjectOpen(false);
+                    setProjectStatus("No project settings found for your semester.");
                 }
             } else {
                 console.error('Failed to fetch group settings');
@@ -74,7 +88,6 @@ const Sidebar = () => {
             console.error('Error fetching group settings:', error.message);
         }
     };
-    
 
     const handleDropdownToggle = () => {
         setShowDropdown(!showDropdown);
@@ -84,13 +97,6 @@ const Sidebar = () => {
         localStorage.removeItem('jwt');
         localStorage.removeItem('isStudent');
         window.location.href = "/";
-    };
-
-    const handleProjectClick = () => {
-        if (!isProjectOpen) {
-            // Set error message when the project window is closed
-            setErrorMessage("Project submission window is currently closed.");
-        }
     };
 
     return (
@@ -116,34 +122,28 @@ const Sidebar = () => {
                         </Link>
                     </li>
 
-                    {/* <li className="nav-item p-1">
-                        <Link to="/student/dashboard/view-attendance" className="nav-link text-black">
-                            <i className="bi bi-person-workspace me-2 fs-5"></i>
-                            <span className="fs-5">View Attendance</span>
-                        </Link>
-                    </li> */}
-
                     <li className="nav-item p-1">
                         {isProjectOpen ? (
-                            <Link to="/student/project" className="nav-link text-black" onClick={handleProjectClick}>
-                                <i className="bi bi-info-circle-fill me-2 fs-5"></i> {/* Green key for open */}
+                            <Link to="/student/project" className="nav-link text-black">
+                                <i className="bi bi-info-circle-fill me-2 fs-5 text-success"></i>
                                 <span className="fs-5">Project Details</span>
+                                <small className="d-block text-muted">Deadline: {new Date(deadline).toLocaleDateString()}</small>
                             </Link>
                         ) : (
                             <div className="text-center">
-                                <span className="nav-link text-black" onClick={handleProjectClick}>
-                                    <i className="bi bi-lock-fill me-2 fs-5 text-danger"></i> {/* Red lock for closed */}
+                                <span className="nav-link text-black disabled">
+                                    <i className="bi bi-lock-fill me-2 fs-5 text-danger"></i>
                                     <span className="fs-5">Project Details</span>
+                                    {deadline && (
+                                        <small className="d-block text-muted">Deadline was: {new Date(deadline).toLocaleDateString()}</small>
+                                    )}
                                 </span>
-                                {/* Display the error message */}
-                                {errorMessage && (
-                                    <p className="text-danger mt-2 fw-bold">{errorMessage}</p>
+                                {projectStatus && (
+                                    <p className="text-danger mt-2 fw-bold">{projectStatus}</p>
                                 )}
                             </div>
                         )}
                     </li>
-
-
 
                     <li className="nav-item p-1">
                         <Link to="/student/help-support" className="nav-link text-black">
